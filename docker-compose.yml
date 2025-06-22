@@ -13,6 +13,8 @@ services:
     environment:
       - NODE_ENV=development
     user: '${MY_UID:-1000}:${MY_GID:-1000}'
+    mem_limit: 1g
+    cpus: 0.125
 
   worker:
     image: node:22-alpine
@@ -24,6 +26,23 @@ services:
     environment:
       - NODE_ENV=development
     user: '${MY_UID:-1000}:${MY_GID:-1000}'
+    mem_limit: 1g
+    cpus: 0.125
+
+  frontend:
+    image: node:22-alpine
+    container_name: vite-react
+    working_dir: /app
+    command: sh -c "cd boilerplate-crud-vite-react && npm install && npm run dev -- --host"
+    volumes:
+      - .:/app
+    ports:
+      - '5173:5173'
+    environment:
+      - NODE_ENV=development
+    user: '${MY_UID:-1000}:${MY_GID:-1000}'
+    mem_limit: 1g
+    cpus: 0.125
 
   redis:
     image: bitnami/redis:latest

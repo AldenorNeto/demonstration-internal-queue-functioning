@@ -8,20 +8,24 @@ export class PaymentIntentProcessor {
   private logger = new Logger(PaymentIntentProcessor.name);
 
   @Process()
-  async handlePaymentIntent(job: Job<CreatePaymentIntent & { id: number }>) {
+  handlePaymentIntent(job: Job<CreatePaymentIntent & { id: number }>) {
     this.logger.debug(`Processing job: ${job.data.id}`);
-    await this.awaitDelay(2000);
+
+    const param = 40;
+
+    const start1 = Date.now();
+    const fibResult1 = this.slowFib(param);
+    const dur1 = Date.now() - start1;
 
     this.logger.debug(
-      `Payment intent job processed job id : ${job.data.id} amount: ${job.data.amount}`,
+      `Fib(${param}) = ${fibResult1} computed in ${dur1}ms for job ${job.data.id}`,
     );
-    await this.awaitDelay(5000);
 
     this.logger.debug(`Payment intent job ${job.data.id} completed`);
     this.logger.debug(job.data);
   }
 
-  private async awaitDelay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+  private slowFib(n: number): number {
+    return n < 2 ? n : this.slowFib(n - 1) + this.slowFib(n - 2);
   }
 }
