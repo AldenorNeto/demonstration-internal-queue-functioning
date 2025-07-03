@@ -1,4 +1,4 @@
-import { BILLING_QUEUE, SharedModule } from '@app/shared';
+import { CALC_QUEUE, SharedModule } from '@app/shared';
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
@@ -9,7 +9,7 @@ import { QueueGateway } from './queue.gateway';
   imports: [
     SharedModule,
     BullModule.registerQueue({
-      name: BILLING_QUEUE,
+      name: CALC_QUEUE,
     }),
   ],
   controllers: [AppController],

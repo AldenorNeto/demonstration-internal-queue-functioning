@@ -1,3 +1,3 @@
 export class CreateFibonacciCalc {
-  amount: number;
+  number: number;
 }

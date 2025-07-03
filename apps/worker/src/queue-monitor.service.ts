@@ -1,4 +1,4 @@
-import { BILLING_QUEUE } from '@app/shared';
+import { CALC_QUEUE } from '@app/shared';
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Queue } from 'bull';
@@ -13,7 +13,7 @@ export class QueueMonitorService implements OnModuleInit {
     password: process.env.REDIS_PASSWORD,
   });
 
-  constructor(@InjectQueue(BILLING_QUEUE) private readonly queue: Queue) {}
+  constructor(@InjectQueue(CALC_QUEUE) private readonly queue: Queue) {}
 
   onModuleInit() {
     this.logger.log('Inicializando monitor de fila no Worker');

@@ -1,1 +1,1 @@
-export const BILLING_QUEUE = 'billing_queue';
+export const CALC_QUEUE = 'fibonacci';

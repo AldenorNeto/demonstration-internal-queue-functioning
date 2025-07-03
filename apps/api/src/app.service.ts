@@ -1,16 +1,14 @@
-import { BILLING_QUEUE, CreateFibonacciCalc } from '@app/shared';
+import { CALC_QUEUE, CreateFibonacciCalc } from '@app/shared';
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
 
 @Injectable()
 export class AppService {
-  constructor(
-    @InjectQueue(BILLING_QUEUE) private readonly billingQueue: Queue,
-  ) {}
+  constructor(@InjectQueue(CALC_QUEUE) private readonly fiboQueue: Queue) {}
 
   async handleFibonacciCalc(body: CreateFibonacciCalc) {
-    const job = await this.billingQueue.add(body);
+    const job = await this.fiboQueue.add(body);
     return { jobId: job.id };
   }
 }

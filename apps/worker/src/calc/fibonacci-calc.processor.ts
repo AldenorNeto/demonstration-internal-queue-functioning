@@ -1,4 +1,4 @@
-import { BILLING_QUEUE, CreateFibonacciCalc } from '@app/shared';
+import { CALC_QUEUE, CreateFibonacciCalc } from '@app/shared';
 import { Process, Processor } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bull';
@@ -6,11 +6,11 @@ import Redis from 'ioredis';
 
 const redis = new Redis({
   host: process.env.REDIS_HOST || 'redis',
-  port: +process.env.REDIS_PORT || 6379,
+  port: Number(process.env.REDIS_PORT) || 6379,
   password: process.env.REDIS_PASSWORD,
 });
 
-@Processor(BILLING_QUEUE)
+@Processor(CALC_QUEUE)
 export class FibonacciCalcProcessor {
   private readonly logger = new Logger(FibonacciCalcProcessor.name);
 
