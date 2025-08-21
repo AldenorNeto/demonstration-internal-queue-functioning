@@ -14,57 +14,6 @@
       |-- queue-monitor.service.ts
       |-- worker.module.ts
     |-- tsconfig.app.json
-|-- boilerplate-crud-vite-react/
-  |-- components.json
-  |-- eslint.config.js
-  |-- .gitignore
-  |-- index.html
-  |-- package.json
-  |-- package-lock.json
-  |-- public/
-    |-- vite.svg
-  |-- README.md
-  |-- src/
-    |-- App.tsx
-    |-- assets/
-      |-- grendene-logo-0.png
-      |-- react.svg
-    |-- components/
-      |-- app-sidebar.tsx
-      |-- data-table/
-      |-- FibonacciJob.tsx
-      |-- header.tsx
-      |-- JobCard.tsx
-      |-- SystemMonitorCard.tsx
-      |-- theme-provider.tsx
-      |-- ui/
-      |-- user-nav.tsx
-    |-- hooks/
-      |-- use-job-status.ts
-      |-- use-mobile.ts
-      |-- use-mobile.tsx
-      |-- use-socket.ts
-      |-- use-toast.ts
-    |-- index.css
-    |-- layouts/
-      |-- DashboardLayout.tsx
-    |-- lib/
-      |-- utils.ts
-    |-- main.tsx
-    |-- pages/
-      |-- comum/
-      |-- consultas/
-      |-- Dashboard.tsx
-      |-- gradista/
-      |-- notificacao/
-      |-- providerEmbalagem/
-      |-- revisor/
-      |-- sistemas/
-    |-- vite-env.d.ts
-  |-- tsconfig.app.json
-  |-- tsconfig.json
-  |-- tsconfig.node.json
-  |-- vite.config.ts
 |-- docker-compose.yml
 |-- .env
 |-- eslint.config.mjs

@@ -33,9 +33,9 @@ services:
     image: node:22-alpine
     container_name: vite-react
     working_dir: /app
-    command: sh -c "cd boilerplate-crud-vite-react && npm install && npm run dev -- --host"
+    command: sh -c "npm install && npm run dev -- --host"
     volumes:
-      - .:/app
+      - ../boilerplate-crud-vite-react:/app
     ports:
       - '5173:5173'
     environment:
