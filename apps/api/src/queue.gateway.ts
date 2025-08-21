@@ -1,4 +1,5 @@
-import { Logger, OnModuleInit } from '@nestjs/common';
+import { REDIS_CLIENT } from '@app/shared';
+import { Inject, Logger, OnModuleInit } from '@nestjs/common';
 import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import Redis from 'ioredis';
 import * as os from 'os';
@@ -14,18 +15,14 @@ export class QueueGateway implements OnModuleInit {
 
   private readonly logger = new Logger(QueueGateway.name);
 
-  private readonly redisSub = new Redis({
-    host: process.env.REDIS_HOST || 'redis',
-    port: Number(process.env.REDIS_PORT) || 6379,
-    password: process.env.REDIS_PASSWORD,
-  });
+  constructor(@Inject(REDIS_CLIENT) private readonly redisSub: Redis) {}
 
   async onModuleInit() {
     await this.redisSub.subscribe('job-status');
 
     this.redisSub.on('message', (_channel, message) => {
       try {
-        const data = JSON.parse(message); // { id, status }
+        const data = JSON.parse(message);
         this.server.emit('jobStatus', data);
         this.logger.debug(`Emitido jobStatus: ${message}`);
       } catch (err) {

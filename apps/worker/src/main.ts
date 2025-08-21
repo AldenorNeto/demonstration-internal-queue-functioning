@@ -2,7 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { WorkerModule } from './worker.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(WorkerModule);
-  await app.listen(process.env.port ?? 3001);
+  const app = await NestFactory.createApplicationContext(WorkerModule);
+  await app.init();
 }
+
 bootstrap();

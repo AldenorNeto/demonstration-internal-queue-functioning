@@ -1,7 +1,7 @@
 import { CALC_QUEUE, SharedModule } from '@app/shared';
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
-import { FibonacciCalcProcessor } from './calc/fibonacci-calc.processor';
+import { FibonacciCalcProcessor } from './processors/fibonacci-calc.processor';
 import { QueueMonitorService } from './queue-monitor.service';
 
 @Module({

@@ -2,6 +2,7 @@ import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
+import { RedisProvider } from './redis.provider';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import * as Joi from 'joi';
       }),
     }),
   ],
-  exports: [BullModule],
+  providers: [RedisProvider],
+  exports: [BullModule, RedisProvider],
 })
 export class SharedModule {}

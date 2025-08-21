@@ -1,0 +1,50 @@
+microservices-project/
+├── 📁 packages/               # Bibliotecas compartilhadas
+│   ├── 📁 common/             # Código comum entre microserviços
+│   │   ├── 📄 package.json
+│   │   ├── 📁 src/
+│   │   │   ├── 📁 interfaces/
+│   │   │   ├── 📁 dto/
+│   │   │   ├── 📁 decorators/
+│   │   │   └── 📄 index.ts
+│   │   └── 📁 dist/
+│   └── 📁 database/           # Cliente de database compartilhado
+│       ├── 📄 package.json
+│       ├── 📁 src/
+│       └── 📁 dist/
+├── 📁 services/               # Microserviços individuais
+│   ├── 📁 api-gateway/        # Gateway de entrada
+│   │   ├── 📄 package.json
+│   │   ├── 📄 Dockerfile
+│   │   ├── 📁 src/
+│   │   │   ├── 📄 main.ts
+│   │   │   ├── 📄 app.module.ts
+│   │   │   └── 📁 ...         # Estrutura similar ao monolito
+│   │   └── 📁 test/
+│   ├── 📁 auth-service/       # Serviço de autenticação
+│   │   ├── 📄 package.json
+│   │   ├── 📄 Dockerfile
+│   │   ├── 📁 src/
+│   │   │   ├── 📄 main.ts
+│   │   │   ├── 📄 app.module.ts
+│   │   │   └── 📁 modules/│
+│   │   │       └── 📁 auth/   # Focado apenas em autenticação
+│   │   └── 📁 test/
+│   ├── 📁 users-service/      # Serviço de usuários
+│   │   ├── 📄 package.json
+│   │   ├── 📄 Dockerfile
+│   │   ├── 📁 src/
+│   │   │   ├── 📄 main.ts
+│   │   │   ├── 📄 app.module.ts
+│   │   │   └── 📁 modules/
+│   │   │       └── 📁 users/  # Focado apenas em usuários
+│   │   └── 📁 test/
+│   └── 📁 products-service/   # Serviço de produtos
+│       ├── 📄 package.json
+│       ├── 📄 Dockerfile
+│       ├── 📁 src/
+│       └── 📁 test/
+├── 📄 package.json            # Package.json raiz (workspace)
+├── 📄 lerna.json              # Configuração do Lerna (gerenciamento de monorepo)
+├── 📄 docker-compose.yml      # Orquestração de todos os serviços
+└── 📄 .env                    # Variáveis de ambiente comuns

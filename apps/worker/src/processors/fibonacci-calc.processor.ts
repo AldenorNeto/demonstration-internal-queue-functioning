@@ -1,18 +1,14 @@
-import { CALC_QUEUE, CreateFibonacciCalc } from '@app/shared';
+import { CALC_QUEUE, CreateFibonacciCalc, REDIS_CLIENT } from '@app/shared';
 import { Process, Processor } from '@nestjs/bull';
-import { Logger } from '@nestjs/common';
+import { Inject, Logger } from '@nestjs/common';
 import { Job } from 'bull';
 import Redis from 'ioredis';
-
-const redis = new Redis({
-  host: process.env.REDIS_HOST || 'redis',
-  port: Number(process.env.REDIS_PORT) || 6379,
-  password: process.env.REDIS_PASSWORD,
-});
 
 @Processor(CALC_QUEUE)
 export class FibonacciCalcProcessor {
   private readonly logger = new Logger(FibonacciCalcProcessor.name);
+
+  constructor(@Inject(REDIS_CLIENT) private readonly redis: Redis) {}
 
   @Process()
   async handle(job: Job<CreateFibonacciCalc>) {
@@ -29,7 +25,7 @@ export class FibonacciCalcProcessor {
   }
 
   private async publishStatus(id: string | number, status: string) {
-    await redis.publish('job-status', JSON.stringify({ id, status }));
+    await this.redis.publish('job-status', JSON.stringify({ id, status }));
     this.logger.debug(`Job ${id} => ${status}`);
   }
 }

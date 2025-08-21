@@ -1,19 +1,17 @@
-import { CALC_QUEUE } from '@app/shared';
+import { CALC_QUEUE, REDIS_CLIENT } from '@app/shared';
 import { InjectQueue } from '@nestjs/bull';
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Queue } from 'bull';
 import Redis from 'ioredis';
 
 @Injectable()
 export class QueueMonitorService implements OnModuleInit {
   private readonly logger = new Logger(QueueMonitorService.name);
-  private readonly pub = new Redis({
-    host: process.env.REDIS_HOST || 'redis',
-    port: parseInt(process.env.REDIS_PORT || '6379', 10),
-    password: process.env.REDIS_PASSWORD,
-  });
 
-  constructor(@InjectQueue(CALC_QUEUE) private readonly queue: Queue) {}
+  constructor(
+    @InjectQueue(CALC_QUEUE) private readonly queue: Queue,
+    @Inject(REDIS_CLIENT) private readonly pub: Redis,
+  ) {}
 
   onModuleInit() {
     this.logger.log('Inicializando monitor de fila no Worker');
