@@ -35,15 +35,11 @@ export class QueueGateway implements OnModuleInit {
 
   private startEmittingSystemStatus(): void {
     setInterval(() => {
-      const mem = process.memoryUsage();
+      const memory = process.memoryUsage();
       const cpus = os.loadavg();
 
       this.server.emit('systemStatus', {
-        memory: {
-          rss: mem.rss,
-          heapUsed: mem.heapUsed,
-          heapTotal: mem.heapTotal,
-        },
+        memory,
         cpu1min: cpus[0],
         cpu5min: cpus[1],
         cpu15min: cpus[2],

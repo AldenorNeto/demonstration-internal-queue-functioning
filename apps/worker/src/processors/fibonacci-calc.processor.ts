@@ -14,7 +14,7 @@ export class FibonacciCalcProcessor {
   async handle(job: Job<CreateFibonacciCalc>) {
     await this.publishStatus(job.id, 'active');
 
-    const fib = this.slowFib(job.data.number || 40);
+    const fib = this.slowFib(job.data.number || 0);
 
     await this.publishStatus(job.id, 'completed');
     return fib;
