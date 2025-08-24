@@ -26,6 +26,7 @@ export class FibonacciCalcProcessor {
 
   private async publishStatus(id: string | number, status: string) {
     await this.redis.publish('job-status', JSON.stringify({ id, status }));
-    this.logger.debug(`Job ${id} => ${status}`);
+
+    this.logger.debug(`Job ${id} ==> ${status}`);
   }
 }

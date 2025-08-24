@@ -22,7 +22,7 @@ export class QueueGateway implements OnModuleInit {
 
     this.redisSub.on('message', (_channel, message) => {
       try {
-        const data = JSON.parse(message);
+        const data = JSON.parse(message) as unknown;
         this.server.emit('jobStatus', data);
         this.logger.debug(`Emitido jobStatus: ${message}`);
       } catch (err) {
