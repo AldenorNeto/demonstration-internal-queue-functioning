@@ -16,7 +16,7 @@ export class FibonacciCalcProcessor {
 
     const fib = this.slowFib(job.data.number || 0);
 
-    await this.publishStatus(job.id, 'completed');
+    await this.publishStatus(job.id, 'completed', fib);
     return fib;
   }
 
@@ -24,8 +24,15 @@ export class FibonacciCalcProcessor {
     return n < 2 ? n : this.slowFib(n - 1) + this.slowFib(n - 2);
   }
 
-  private async publishStatus(id: string | number, status: string) {
-    await this.redis.publish('job-status', JSON.stringify({ id, status }));
+  private async publishStatus(
+    id: string | number,
+    status: string,
+    fib?: number,
+  ) {
+    await this.redis.publish(
+      'job-status',
+      JSON.stringify({ id, status, value: fib }),
+    );
 
     this.logger.debug(`Job ${id} ==> ${status}`);
   }

@@ -9,6 +9,7 @@ export class AppService {
 
   async handleFibonacciCalc(body: CreateFibonacciCalc) {
     const job = await this.fiboQueue.add(body);
-    return { jobId: job.id };
+
+    return { jobId: job.id, status: 'waiting' };
   }
 }
